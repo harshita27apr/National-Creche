@@ -13,34 +13,30 @@ var {Parent} = require('./models/parent')
 var {Creche} = require('./models/creche')
 var {Faculty} = require('./models/faculty')
 
-
-app.post('/contact',(req,res) => {
+app.post('/contact',function(req,res){
     nodemailer.createTestAccount((err, account) => {
-        let smtpTransport = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 465,
-            secure: true,
-            auth: {
-                user: "harshita27apr@gmail.com", 
-                pass: "992909222127041998"
-            } });
+    let smtpTransport = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: "national-creche@gmail.com", 
+            pass: "test123"
+        } });
     var mailOptions={
-        to : "harshita27apr@gmail.com",
-        from : req.body.email,
+        to : "national-creche@gmail.com",
+        from : "national-creche@gmail.com",
         subject : "Contact Admin",
         html : req.body.description
     }
     smtpTransport.sendMail(mailOptions, function(error, response){
-     if(error){
-        res.end("error");
-     }else{
-        res.end("sent");
-         }
+        if(error) res.end("error");
+        else res.end("sent");
     })
 })
 });
 
-app.post('/checkregister',(req ,res) => { 
+app.post('/checkregister',function(req ,res){ 
     if(req.body.radio == "Government") {
     Government.find({ email : req.body.email}).then((gov) => {
         if (gov.length < 1) {
@@ -139,8 +135,7 @@ app.post('/parentregister',(req ,res) => {
     })    
 });
 
-app.post('/crecheregister',(req ,res) => { 
-    console.log(req.body);
+app.post('/crecheregister',function(req ,res){
     Creche.find({ email : req.body.email}).then((cre) => {
         if (cre.length < 1) {
             return res.status(401).json({message: "Auth failed"});
@@ -151,16 +146,14 @@ app.post('/crecheregister',(req ,res) => {
         c.address = req.body.address;
         c.mobile = req.body.mobile;
         c.cname = req.body.cname;
+        c.
         c.aadhar = req.body.aadhar;
         c.description = req.body.description;        
         c.save();
     })    
 });
 
-
 app.listen(3000,(err, res) => {
-    if(err) {
-        return console.log("Unable to set up server")
-    }
-    console.log("Server is up on port 3000")
+    if(err) return console.log("Unable to set up server",err);
+    else console.log("Server is up on port 3000");
 });
