@@ -1,0 +1,158 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="/" >
+      <img src="assets/images/logo.jpg" width="50" height="50" alt="logo">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/register">Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/loginform">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/creches">Creches</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/contact">Contact Us</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="card" style="background-color:transparent">
+  <div class="card-body">
+      <div class="container">
+  <h3 class="text-center">Register</h3><br>
+
+  <form class= "form-horizontal" #govregisterForm="ngForm" style="background-color: transparent; text-align: center">
+
+<div class="row d-flex justify-content-center">
+  <div class="col-xs-4">
+      <div class="form-group">
+          <input type="text" class="form-control" placeholder="Enter your name" id="name" required minlength = "3"
+              [(ngModel)]="namet" name="name" #name="ngModel">
+      <div *ngIf="name.errors && (name.dirty || name.touched)">
+          <div [hidden]="!name.errors.required">
+              <mark>Name is required!</mark>
+          </div>
+          <div [hidden]="!name.errors.minlength">
+            <mark>Name must be at least 3 characters long.</mark>
+          </div>
+      </div>
+      </div>
+  </div>
+</div>
+
+<div class="row d-flex justify-content-center">
+    <div class="col-xs-4">
+    <div class="form-group">
+        <input type="email" class="form-control" placeholder="Email" id="email" required email
+            [(ngModel)]="emailt" name="email" #email="ngModel" >
+        <div *ngIf="email.errors && (email.dirty || email.touched)">
+            <div [hidden]="!email.errors.required">
+                <mark>Email is required!</mark>
+            </div>
+            <div [hidden]="!email.errors.email">
+                <mark>Email must be a valid one.</mark>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+  <div class="row d-flex justify-content-center">
+  <div class="col-xs-4">
+  <div class="form-group">
+      <input type="mobile" placeholder="Mobile" class="form-control" id="mobile" required minlength="10"
+          [(ngModel)]="mobilet" name="mobile" #mobile="ngModel">
+      <div *ngIf="mobile.errors && (mobile.dirty || mobile.touched)">
+          <div [hidden]="!mobile.errors.required">
+              <mark>Mobile is required!</mark>
+          </div>
+          <div [hidden]="!mobile.errors.minlength">
+             <mark>Mobile must be at least 10 characters long.</mark>
+          </div>
+      </div>  
+  </div>
+  </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-xs-4">
+    <div class="form-group">
+        <input type="text" placeholder="Designation" class="form-control" id="designation" required
+            [(ngModel)]="designaiont" name="designation" #designation="ngModel">
+        <div *ngIf="designation.errors && (designation.dirty || designation.touched)">
+            <div [hidden]="!designaion.errors.required">
+                <mark>Designation is required!</mark>
+            </div>
+        </div>  
+    </div>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-xs-4">
+    <div class="form-group">
+        <input type="text" placeholder="Department" class="form-control" id="department" required
+            [(ngModel)]="departmentt" name="department" #department="ngModel">
+        <div *ngIf="department.errors && (department.dirty || department.touched)">
+            <div [hidden]="!department.errors.required">
+                <mark>Department is required!</mark>
+            </div>
+        </div>  
+    </div>
+    </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-xs-4">
+      <div class="form-group">
+          <input type="number" placeholder="Aadhar Card Number" class="form-control" id="aadhar" required minlength="12" maxlength="12"
+              [(ngModel)]="aadhart" name="aadhar" #aadhar="ngModel">
+          <div *ngIf="aadhar.errors && (aadhar.dirty || aadhar.touched)">
+              <div [hidden]="!aadhar.errors.required">
+                  <mark>Aadhar Card Number is required!</mark>
+              </div>
+              <div [hidden]="!mobile.errors.minlength">
+                <mark>Aadhar card number must be 10 characters long.</mark>
+             </div>
+          </div>  
+      </div>
+      </div>
+      </div>
+
+      <div class="row d-flex justify-content-center">
+        <div class="col-xs-4">
+        <div class="form-group">
+            <input type="text" placeholder="Address" class="form-control" id="address" required
+                [(ngModel)]="addresst" name="address" #address="ngModel">
+            <div *ngIf="address.errors && (address.dirty || address.touched)">
+                <div [hidden]="!address.errors.required">
+                    <mark>Address is required!</mark>
+                </div>
+            </div>  
+        </div>
+        </div>
+        </div>
+
+  <h4>Already a member? <a routerLink="/loginform">Login</a></h4>
+
+  <button type="submit" class="btn btn-primary btn-lg" [disabled]="!govregisterForm.form.valid"
+  (click) = "addgov(name.value,email.value,mobile.value,designation.value,department.value,aadhar.value,address.value)"
+  [routerLink] = "['/']">Submit</button>
+
+</form>
+</div>
+</div>
+</div>

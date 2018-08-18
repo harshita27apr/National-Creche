@@ -1,0 +1,131 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="/" >
+      <img src="assets/images/logo.jpg" width="50" height="50" alt="logo">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/register">Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/loginform">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/creches">Creches</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/contact">Contact Us</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<form class= "form-horizontal" #registerForm="ngForm" style="background-color: transparent; text-align: center">
+  
+  <div class="row d-flex justify-content-center">
+    <div class="col-xs-4">
+      <div class="form-group">
+         <input type="email" class="form-control" placeholder="Email" id="email" required email
+              [(ngModel)]="emailtext" name="email" #email="ngModel" >
+          <div *ngIf="email.errors && (email.dirty || email.touched)">
+              <div [hidden]="!email.errors.required">
+                  <mark>Email is required!</mark>
+              </div>
+              <div [hidden]="!email.errors.email">
+                  <mark>Email must be a valid one.</mark>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+  <div class="col-xs-4">
+  <div class="form-group">
+    <input type="password" placeholder="Old Password" class="form-control" id="opassword" required
+        [(ngModel)]="opasswordtext" name="opassword" #opassword="ngModel">
+    <div *ngIf="opassword.errors && (opassword.dirty || opassword.touched)">
+        <div [hidden]="!opassword.errors.required">
+            <mark>Old Password is required!</mark>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+  
+  <div ngModelGroup = "passwordGroup"> 
+      <div class="row d-flex justify-content-center">
+      <div class="col-xs-4">
+      <div [class.has-error]="cpassword.touched && cpassword.invalid">
+  
+      <div class="form-group">
+          <input type="password" placeholder="Password" class="form-control" id="password" required minlength="8"
+              [(ngModel)]="passwordtext" name="password" #password="ngModel">
+          <div *ngIf="password.errors && (password.dirty || password.touched)">
+              <div [hidden]="!password.errors.required">
+                  <mark>Password is required!</mark>
+              </div>
+              <div [hidden]="!password.errors.minlength">
+                  <mark>Password must be at least 8 characters long.</mark>
+              </div>
+          </div>
+      </div>
+      </div>
+      </div>
+      </div>
+  
+      <div class="row d-flex justify-content-center">
+      <div class="col-xs-4">
+      <div class="form-group" [class.has-error] = "cpassword.touched &&  cpassword.invalid">
+          <input type="password" appCustomValidator="password" placeholder="Confirm Password" class="form-control" id="cpassword" required
+              [(ngModel)]="confirm_password" name="cpassword" #cpassword="ngModel">
+              <div *ngIf="cpassword.errors && (cpassword.dirty || cpassword.touched)">
+                  <div [hidden]="!cpassword.errors.required">
+                      <mark>Confirm Password is required!</mark>
+                  </div>
+                  <div *ngIf="!cpassword.errors.required" >
+                  <div [hidden] ="!cpassword.errors.notequal && !cpassword.errors.required">
+                      <mark>Password and Confirm Password does not match.</mark>
+                  </div>
+                  </div>
+              </div>               
+      </div>
+      </div>
+      </div>
+  </div>
+
+  <div ngModelGroup = "RadioGroup"> 
+    <div class="row d-flex justify-content-center">
+        <div class="col-xs-4">
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" [(ngModel)]="radiot" value="Government" #radio="ngModel" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+    <label class="custom-control-label" for="customRadioInline1">Government</label>
+  </div>
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" [(ngModel)]="radiot" value="Creche" #radio="ngModel" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+    <label class="custom-control-label" for="customRadioInline2">Creche</label>
+  </div>
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" [(ngModel)]="radiot" value="Parent" #radio="ngModel" checked id="customRadioInline3" name="customRadioInline1" class="custom-control-input">
+    <label class="custom-control-label" for="customRadioInline3">Parent</label>
+  </div>
+</div>
+</div>
+</div>
+  
+  <h4 class="text-white">Already a member? <a routerLink="/loginform">Login</a></h4>
+  
+  <button type="submit" class="btn btn-primary btn-lg" [disabled]="!registerForm.form.valid"
+      (click) = "register(email.value,opassword.value,password.value,radio.value)"
+      [routerLink] = "['/']">Submit</button>
+  
+  </form>

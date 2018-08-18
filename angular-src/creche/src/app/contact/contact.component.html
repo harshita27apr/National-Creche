@@ -1,0 +1,89 @@
+<div style="background-image: url('assets/images/contact.jpg'); height:675px" >
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" routerLink="/" >
+          <img src="assets/images/logo.jpg" width="50" height="50" alt="logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/loginform">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/creches">Creches</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+  </nav><br><br>
+
+<div class="card" style="background-color:transparent">
+  <div class="card-body">
+      <div class="container">
+  <h3 class="text-center text-dark">Contact Us</h3><br>
+  <p class="text-center text-dark">Any Ideas?queries?Suggestions?Coplains?</p><br>
+  <p class="text-center text-dark">Feel free to conatct us</p><br>
+<form class= "form-horizontal" #contactForm="ngForm" style="background-color: transparent; text-align: center">
+
+<div class="row d-flex justify-content-center">
+  <div class="col-xs-4">
+      <div class="form-group">
+          <input type="text" class="form-control" #name="ngModel" name="name" placeholder="Enter your name" id="name" required minlength = "3"
+                [(ngModel)]="cont.name">
+      <div *ngIf="name.errors && (name.dirty || name.touched)">
+          <div [hidden]="!name.errors.required">
+              <mark>Name is required!</mark>
+          </div>
+          <div [hidden]="!name.errors.minlength">
+            <mark>Name must be at least 3 characters long.</mark>
+          </div>
+      </div>
+      </div>
+  </div>
+</div>
+
+  <div class="row d-flex justify-content-center">
+  <div class="col-xs-4">
+  <div class="form-group">
+      <input type="email" class="form-control" #email="ngModel" placeholder="Email" name="email" id="email" required email
+          name="email" [(ngModel)]="cont.email">
+      <div *ngIf="email.errors && (email.dirty || email.touched)">
+          <div [hidden]="!email.errors.required">
+              <mark>Email is required!</mark>
+          </div>
+          <div [hidden]="!email.errors.email">
+              <mark>Email must be a valid one.</mark>
+          </div>
+      </div>
+  </div>
+  </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+      <div class="col-xs-4">
+  <div class="form-group">
+    <textarea [(ngModel)]="cont.description" placeholder="Description" class="form-control" #description="ngModel" name="description" id="description"></textarea>
+  </div>
+  </div>
+  </div>
+
+  <button type="submit" [disabled]="!contactForm.form.valid" (click)="contact(name.value,email.value,description.value)" class="btn btn-primary btn-lg">Contact</button>
+
+</form>
+</div>
+</div>
+</div>
