@@ -15,6 +15,7 @@ var {Faculty} = require('./models/faculty')
 
 app.post('/contact',function(req,res){
     nodemailer.createTestAccount((err, account) => {
+<<<<<<< HEAD
     let smtpTransport = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -26,6 +27,19 @@ app.post('/contact',function(req,res){
     var mailOptions={
         to : "national-creche@gmail.com",
         from : "national-creche@gmail.com",
+=======
+        let smtpTransport = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: "national.creche@gmail.com", 
+                pass: "creche123"
+            } });
+    var mailOptions={
+        to : "national.creche@gmail.com",
+        from : req.body.email,
+>>>>>>> 7a2ca728316b1bb6b4deab679d6aba2c6b4ebf9d
         subject : "Contact Admin",
         html : req.body.description
     }
@@ -154,6 +168,14 @@ app.post('/crecheregister',function(req ,res){
 });
 
 app.listen(3000,(err, res) => {
+<<<<<<< HEAD
     if(err) return console.log("Unable to set up server",err);
     else console.log("Server is up on port 3000");
 });
+=======
+    if(err) {
+        return console.log("Unable to set up server")
+    }
+    console.log("Server is up on port 3000")
+});
+>>>>>>> 7a2ca728316b1bb6b4deab679d6aba2c6b4ebf9d
