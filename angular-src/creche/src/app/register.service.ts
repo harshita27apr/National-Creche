@@ -26,4 +26,8 @@ export class RegisterService {
     console.log("inside service",array);
     return this.http.post("http://localhost:3000/crecheregister",array).pipe(map(response => response));
   }
+
+  login(array) : Observable<any> {
+    return this.http.post("http://localhost:3000/login",array).pipe(map(response => response));
+  }
 }

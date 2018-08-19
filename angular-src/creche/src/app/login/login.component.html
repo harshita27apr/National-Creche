@@ -32,50 +32,67 @@
   </nav>
   <br><br>
   
-  <div class="row d-flex align-items-center">
-    <div class="col-8 text-dark">
-      <h3 class="text-center text-dark">Hey You!</h3>
-      <h3 class="text-center text-dark">What are you waiting for??Hurry up!!Login</h3>
-    </div> 
+  <h2 class="card-header">Login Form</h2>
   
-  <div class="col-4">
-  <div class="card text-center" style="width: 30rem;">
-    <div class="card-body">
-  <div class="container">
-      <h2 class="card-header">Login Form</h2>
-  
-    <form >
-      <div class="form-group">
-        <h3>Username</h3>
-        <input type="text" class="form-control" id="username" required 
-          name="username">
-        <div *ngIf="username.errors && (username.dirty || username.touched)">
-          <div [hidden]="!username.errors.required">
-            Username is required!
-          </div>
+    <form class= "form-horizontal" #loginForm="ngForm" style="background-color: transparent; text-align: center" >
+     
+    <div class="row d-flex justify-content-center">
+    <div class="col-xs-4">
+    <div class="form-group">
+      <input type="email" class="form-control" placeholder="Email" id="email" required email
+      [(ngModel)]="emailtext" name="email" #email="ngModel" >
+      <div *ngIf="email.errors && (email.dirty || email.touched)">
+        <div [hidden]="!email.errors.required">
+          <mark>Email is required!</mark>
+        </div>
+        <div [hidden]="!email.errors.email">
+        <mark>Email must be a valid one.</mark>
         </div>
       </div>
-        
-  
-      <div class="form-group">
-        <h3>Password</h3>
-        <input type="password" class="form-control" id="password" required
-           name="password" >
-          <div *ngIf="password.errors && (password.dirty || password.touched)">
-              <div [hidden]="!password.errors.required">
-                  Password is required!
-              </div>
-          </div>
+    </div>
+    </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+    <div class="col-xs-4">
+    <div class="form-group">
+      <input type="password" class="form-control" placeholder="Password" id="password" required 
+      [(ngModel)]="passwordtext" name="password" #password="ngModel" >
+      <div *ngIf="password.errors && (password.dirty || password.touched)">
+        <div [hidden]="!password.errors.required">
+        <mark>Password is required!</mark>
+        </div>
       </div>
-      <h4>Not a member? <a routerLink="/registerform">Register</a></h4>
+    </div>
+    </div>
+    </div>
+    
+
+      <div ngModelGroup = "RadioGroup"> 
+      <div class="row d-flex justify-content-center">
+      <div class="col-xs-4">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" [(ngModel)]="radiot" value="Government" #radio="ngModel" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+          <label class="custom-control-label" for="customRadioInline1">Government</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" [(ngModel)]="radiot" value="Creche" #radio="ngModel" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+          <label class="custom-control-label" for="customRadioInline2">Creche</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" [(ngModel)]="radiot" value="Parent" #radio="ngModel" checked id="customRadioInline3" name="customRadioInline1" class="custom-control-input">
+          <label class="custom-control-label" for="customRadioInline3">Parent</label>
+        </div>
+      </div>
+      </div>
+      </div>
+
+
+      <h4>Not a member? <a routerLink="/register">Register</a></h4>
   
       <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid"
-       (click) = "loginUser(username.value,password.value)">LOGIN</button>
+       (click) = "loginUser(email.value,password.value,radio.value)">LOGIN</button>
     </form>
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
+
+</div>
   
