@@ -153,6 +153,46 @@ app.post('/crecheregister',function(req ,res){
     })    
 });
 
+app.post('/login',function(req,res){
+    console.log("LOGIN GOT -------- ",req.body);
+    if(req.radio == 'Government'){
+        Government.findOne({email:req.body.email},function(err,r){
+            if(err) console.log("Error : ",err);
+            else if(r){
+                bcrypt.compare(req.body.password,r.password,function(error,result){
+                    if(error) console.log("Error : ",error);
+                    else if(r) return res.json({"result":true});
+                    else return res.json({"result":false});
+                })
+            }
+        })
+    }
+    else if(req.radio == 'Creche'){
+        Creche.findOne({email:req.body.email},function(err,r){
+            if(err) console.log("Error : ",err);
+            else if(r){
+                bcrypt.compare(req.body.password,r.password,function(error,result){
+                    if(error) console.log("Error : ",error);
+                    else if(r) return res.json({"result":true});
+                    else return res.json({"result":false});
+                })
+            }
+        })
+    }
+    else{
+        Parent.findOne({email:req.body.email},function(err,r){
+            if(err) console.log("Error : ",err);
+            else if(r){
+                bcrypt.compare(req.body.password,r.password,function(error,result){
+                    if(error) console.log("Error : ",error);
+                    else if(r) return res.json({"result":true});
+                    else return res.json({"result":false});
+                })
+            }
+        })
+    }
+})
+
 app.listen(3000,(err, res) => {
     if(err) return console.log("Unable to set up server",err);
     else console.log("Server is up on port 3000");
