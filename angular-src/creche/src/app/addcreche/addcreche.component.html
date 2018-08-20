@@ -1,0 +1,68 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="/" >
+      <img src="assets/images/logo.jpg" width="50" height="50" alt="logo">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/govhome">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/creches">Creches</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/addcreche">Add Creche</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/addadmin">Add Admin</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<form class= "form-horizontal" #loginForm="ngForm" style="background-color: transparent; text-align: center" >
+     
+  <div class="row d-flex justify-content-center">
+  <div class="col-xs-4">
+  <div class="form-group">
+    <input type="email" class="form-control" placeholder="Email" id="email" required email
+    [(ngModel)]="emailtext" name="email" #email="ngModel" >
+    <div *ngIf="email.errors && (email.dirty || email.touched)">
+      <div [hidden]="!email.errors.required">
+        <mark>Email is required!</mark>
+      </div>
+      <div [hidden]="!email.errors.email">
+      <mark>Email must be a valid one.</mark>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+  <div class="col-xs-4">
+  <div class="form-group">
+    <input type="password" class="form-control" placeholder="Password" id="password" required minlength="6" 
+    [(ngModel)]="passwordtext" name="password" #password="ngModel" >
+    <div *ngIf="password.errors && (password.dirty || password.touched)">
+      <div [hidden]="!password.errors.required">
+      <mark>Password is required!</mark>
+      </div>
+      <div [hidden]="!password.errors.minlength">
+      <mark>Password must be at least 8 characters long.</mark>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid"
+       (click) = "send(email.value,password.value)">Add Creche</button>
+  </form>
+

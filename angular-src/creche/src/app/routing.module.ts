@@ -10,6 +10,9 @@ import {RegisterComponent} from './register/register.component'
 import { ParentregisterComponent } from './parentregister/parentregister.component';
 import { GovregisterComponent } from './govregister/govregister.component';
 import { CrecheregisterComponent } from './crecheregister/crecheregister.component';
+import { GovhomeComponent } from './govhome/govhome.component';
+import { AddcrecheComponent } from './addcreche/addcreche.component';
+import { AddadminComponent } from './addadmin/addadmin.component';
 
 const routes : Routes =[
     { path :'', pathMatch :'full' , component : HomeComponent },
@@ -21,6 +24,9 @@ const routes : Routes =[
     {path : 'parentregister' , component : ParentregisterComponent},
     {path : 'governmentregister' , component : GovregisterComponent},
     {path : 'crecheregister' , component : CrecheregisterComponent},
+    {path : 'govhome' , component : GovhomeComponent},
+    {path : 'addcreche' , component : AddcrecheComponent},
+    {path : 'addadmin' , component : AddadminComponent}
 ];
 
 
