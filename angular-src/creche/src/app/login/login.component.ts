@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterService } from '../register.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,8 @@ export class LoginComponent implements OnInit {
   arr;
   res;
 
-  constructor(private register : RegisterService) { }
+  constructor(private register : RegisterService,
+  private router : Router) { }
 
   ngOnInit() {
   }
@@ -19,10 +21,20 @@ export class LoginComponent implements OnInit {
   loginUser(email,pass,radio) {
     this.arr = {
       "email" : email,
-      "pasword" : pass,
+      "password" : pass,
       "radio" : radio
      }
-     this.register.login(this.arr).subscribe(res => this.res =res);
+     this.register.login(this.arr).subscribe(res => { this.res =res
+      if(radio == "Government" && this.res.result == true) {
+        this.router.navigate(['/govhome']);
+      }
+      else if (radio == "Parent" && this.res.result == true) {
+        this.router.navigate(['/parenthome']);
+      }
+      else if (radio == "Creche" && this.res.result == true) {
+        this.router.navigate(['/crechehome']);
+      }
+    })
   }
 
 }

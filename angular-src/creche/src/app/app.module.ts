@@ -16,9 +16,11 @@ import { RegisterComponent } from './register/register.component';
 import { CrecheregisterComponent } from './crecheregister/crecheregister.component';
 import { ParentregisterComponent } from './parentregister/parentregister.component';
 import { GovregisterComponent } from './govregister/govregister.component';
-import { GovhomeComponent } from '../govhome/govhome.component';
-import { AddcrecheComponent } from '../addcreche/addcreche.component';
+import { GovhomeComponent } from './govhome/govhome.component';
+import { AddcrecheComponent } from './addcreche/addcreche.component';
 import { AddadminComponent } from './addadmin/addadmin.component';
+import { ParenthomeComponent } from './parenthome/parenthome.component';
+import { CrechehomeComponent } from './crechehome/crechehome.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { AddadminComponent } from './addadmin/addadmin.component';
     GovregisterComponent,
     GovhomeComponent,
     AddcrecheComponent,
-    AddadminComponent
+    AddadminComponent,
+    ParenthomeComponent,
+    CrechehomeComponent
   ],
   imports: [
     BrowserModule,

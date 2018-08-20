@@ -21,7 +21,7 @@ export class AddadminComponent implements OnInit {
       "email" : email,
       "password" : password
     }
-    this.register.addadmin(this.arr).subscribe(res => this.res = res);
+    this.register.addadmin(this.arr).subscribe(res =>this.res = res);
   }
 
 }

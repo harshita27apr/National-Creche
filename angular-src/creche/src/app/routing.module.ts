@@ -13,6 +13,8 @@ import { CrecheregisterComponent } from './crecheregister/crecheregister.compone
 import { GovhomeComponent } from './govhome/govhome.component';
 import { AddcrecheComponent } from './addcreche/addcreche.component';
 import { AddadminComponent } from './addadmin/addadmin.component';
+import { ParenthomeComponent } from './parenthome/parenthome.component';
+import { CrechehomeComponent } from './crechehome/crechehome.component';
 
 const routes : Routes =[
     { path :'', pathMatch :'full' , component : HomeComponent },
@@ -26,7 +28,9 @@ const routes : Routes =[
     {path : 'crecheregister' , component : CrecheregisterComponent},
     {path : 'govhome' , component : GovhomeComponent},
     {path : 'addcreche' , component : AddcrecheComponent},
-    {path : 'addadmin' , component : AddadminComponent}
+    {path : 'addadmin' , component : AddadminComponent},
+    {path : 'parenthome' , component : ParenthomeComponent},
+    {path : 'crechehome' , component : CrechehomeComponent}
 ];
 
 

@@ -155,7 +155,7 @@ app.post('/crecheregister',function(req ,res){
 
 app.post('/login',function(req,res){
     console.log("LOGIN GOT -------- ",req.body);
-    if(req.radio == 'Government'){
+    if(req.body.radio == 'Government'){
         Government.findOne({email:req.body.email},function(err,r){
             if(err) console.log("Error : ",err);
             else if(r){
@@ -167,7 +167,7 @@ app.post('/login',function(req,res){
             }
         })
     }
-    else if(req.radio == 'Creche'){
+    else if(req.body.radio == 'Creche'){
         Creche.findOne({email:req.body.email},function(err,r){
             if(err) console.log("Error : ",err);
             else if(r){
