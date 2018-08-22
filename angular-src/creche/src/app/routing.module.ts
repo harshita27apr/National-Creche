@@ -15,6 +15,12 @@ import { AddcrecheComponent } from './addcreche/addcreche.component';
 import { AddadminComponent } from './addadmin/addadmin.component';
 import { ParenthomeComponent } from './parenthome/parenthome.component';
 import { CrechehomeComponent } from './crechehome/crechehome.component';
+import { AddchildrenComponent } from './addchildren/addchildren.component';
+import { AddnoticeComponent } from './addnotice/addnotice.component';
+import { AddfacultyComponent } from './addfaculty/addfaculty.component';
+import { ChildrenComponent } from './children/children.component';
+import { FacultyComponent } from './faculty/faculty.component';
+import { ComplainsComponent } from './complains/complains.component';
 
 const routes : Routes =[
     { path :'', pathMatch :'full' , component : HomeComponent },
@@ -30,7 +36,13 @@ const routes : Routes =[
     {path : 'addcreche' , component : AddcrecheComponent},
     {path : 'addadmin' , component : AddadminComponent},
     {path : 'parenthome' , component : ParenthomeComponent},
-    {path : 'crechehome' , component : CrechehomeComponent}
+    {path : 'crechehome' , component : CrechehomeComponent},
+    {path : 'addchildren' , component : AddchildrenComponent},
+    {path : 'addnotice' , component : AddnoticeComponent},
+    {path : 'addfaculty' , component : AddfacultyComponent},
+    {path : 'children' , component : ChildrenComponent},
+    {path : 'faculty' , component : FacultyComponent},
+    {path : 'complains' , component : ComplainsComponent}
 ];
 
 

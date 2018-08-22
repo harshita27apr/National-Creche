@@ -152,7 +152,7 @@ app.post('/sendRegisterMail',function(req,res){
 app.post('/crechelist',function(req,res){
     Creche.find({},{description:1,cname:1},function(err,r){
         if(err) console.log("Error");
-        else if(r) return res.json({"result":true , "values":r});
+        else if(r) res.send(r);
     });
 });
 
@@ -197,7 +197,6 @@ app.post('/crecheregister',function(req ,res){
         if (cre.length < 1) {
             return res.status(401).json({message: "Auth failed"});
         }
-        console.log(cre[0])
         var c = cre[0];
         c.name = req.body.name;
         c.address = req.body.address;
@@ -212,11 +211,11 @@ app.post('/crecheregister',function(req ,res){
 app.post('/login',function(req,res){
     if(req.body.radio == 'Government'){
         Government.findOne({email:req.body.email},function(err,r){
-            if(err) console.log("Error : ",err);
+            if(err) return console.log("Error : ",err);
             else if(r){
                 bcrypt.compare(req.body.password,r.password,function(error,result){
                     if(error) console.log("Error : ",error);
-                    else if(r) return res.json({"result":true});
+                    else if(result) return res.json({"result":true});
                     else return res.json({"result":false});
                 });
             }
@@ -228,7 +227,7 @@ app.post('/login',function(req,res){
             else if(r){
                 bcrypt.compare(req.body.password,r.password,function(error,result){
                     if(error) console.log("Error : ",error);
-                    else if(r) return res.json({"result":true});
+                    else if(result) return res.json({"result":true});
                     else return res.json({"result":false});
                 });
             }
@@ -240,7 +239,7 @@ app.post('/login',function(req,res){
             else if(r){
                 bcrypt.compare(req.body.password,r.password,function(error,result){
                     if(error) console.log("Error : ",error);
-                    else if(r) return res.json({"result":true});
+                    else if(result) return res.json({"result":true});
                     else return res.json({"result":false});
                 });
             }

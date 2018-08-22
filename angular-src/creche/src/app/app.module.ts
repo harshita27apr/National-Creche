@@ -21,6 +21,12 @@ import { AddcrecheComponent } from './addcreche/addcreche.component';
 import { AddadminComponent } from './addadmin/addadmin.component';
 import { ParenthomeComponent } from './parenthome/parenthome.component';
 import { CrechehomeComponent } from './crechehome/crechehome.component';
+import { AddfacultyComponent } from './addfaculty/addfaculty.component';
+import { AddchildrenComponent } from './addchildren/addchildren.component';
+import { FacultyComponent } from './faculty/faculty.component';
+import { ChildrenComponent } from './children/children.component';
+import { AddnoticeComponent } from './addnotice/addnotice.component';
+import { ComplainsComponent } from './complains/complains.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +44,13 @@ import { CrechehomeComponent } from './crechehome/crechehome.component';
     AddcrecheComponent,
     AddadminComponent,
     ParenthomeComponent,
-    CrechehomeComponent
+    CrechehomeComponent,
+    AddfacultyComponent,
+    AddchildrenComponent,
+    FacultyComponent,
+    ChildrenComponent,
+    AddnoticeComponent,
+    ComplainsComponent
   ],
   imports: [
     BrowserModule,

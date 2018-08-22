@@ -8,7 +8,20 @@ import { Observable } from 'rxjs';
 })
 export class RegisterService {
 
+  value;
+
   constructor (private http : HttpClient) { }
+
+  setvalue(v) {
+    this.value = v;
+  }
+
+  getvalue() : Observable<any> {
+    if(this.value == null) {
+      this.value= "abc";
+    }
+    return (this.value);
+  }
 
   check(array) : Observable<any> {
     return this.http.post("http://localhost:3000/checkregister",array).pipe(map(response => response));
@@ -23,7 +36,6 @@ export class RegisterService {
   }
 
   addcre(array) : Observable<any> {
-    console.log("inside service",array);
     return this.http.post("http://localhost:3000/crecheregister",array).pipe(map(response => response));
   }
 
