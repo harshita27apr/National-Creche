@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterService } from '../register.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-addcreche',
@@ -7,21 +8,17 @@ import { RegisterService } from '../register.service';
   styleUrls: ['./addcreche.component.css']
 })
 export class AddcrecheComponent implements OnInit {
-
-  res;
-  arr;
-
-  constructor(private register : RegisterService) { }
-
-  ngOnInit() {
-  }
+  constructor( private register:RegisterService , private router:Router ) { }
+  ngOnInit() {  }
 
   send(email,password) {
-    this.arr = {
+    const arr = {
       "email" : email,
-      "password" : password
+      "password" : password,
+      "db" : "creche"
     }
-    this.register.addcreche(this.arr).subscribe(res => this.res = res);
+    this.register.addcreche(arr).subscribe(res => {
+      if(res.result) this.router.navigate(['/govhome']);
+    });
   }
-
 }

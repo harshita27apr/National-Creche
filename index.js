@@ -99,6 +99,60 @@ app.post('/checkregister',function(req ,res){
     }
 })
 
+app.post('/sendRegisterMail',function(req,res){
+    if(req.body.db == 'creche'){
+        Creche.findOne({email:req.body.email},function(err,r){
+            console.log(r);
+            if(err) console.log("Error : ",err);
+            else if(r) return res.json({"result":true});
+            else{
+                var creche = new Creche;
+                creche.email = req.body.email;
+                creche.password = req.body.password;
+                creche.save();
+                return res.json({"result":true});
+            }
+        });
+    }
+    else if(req.body.db == 'admin'){
+        Government.findOne({email:req.body.email},function(err,r){
+            if(err) console.log("Error : ",err);
+            else if(r) return res.json({"result":true});
+            else{
+                var gov = new Government;
+                gov.email = req.body.email;
+                gov.password = req.body.password;
+                gov.save();
+                return res.json({"result":true});
+            }
+        });
+    }
+    let smtpTransport = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: "national.creche@gmail.com", 
+            pass: "creche123"
+        } });
+    var mailOptions={
+        from : '"National Creche" <national.creche@gmail.com>',
+        to : req.body.email,
+        subject : "Registration Successful",
+        html : '<b>Hello dear,<hr>This is to bring to your attention that your registration for National Creche has been successful. Your Id and OTP(One Time Password) is as follows<hr>ID  :' + req.body.email + '<hr>Password : ' + req.body.password + '<hr>Please Note : You are solely responsible for all the entries that are made. If at any point you are found to have entered false entries then strict actions will be taken againt you.<br>Regards,<hr>National Creche Team<b>'
+    }
+    smtpTransport.sendMail(mailOptions, function(error, response){
+        if(error) res.end("error");
+    });
+});
+
+app.post('/crechelist',function(req,res){
+    Creche.find({},{description:1,cname:1},function(err,r){
+        if(err) console.log("Error");
+        else if(r) return res.json({"result":true , "values":r});
+    });
+});
+
 app.post('/govregister',(req ,res) => { 
     Government.find({ email : req.body.email}).then((gov) => {
         if (gov.length < 1) {
@@ -146,7 +200,6 @@ app.post('/crecheregister',function(req ,res){
         c.address = req.body.address;
         c.mobile = req.body.mobile;
         c.cname = req.body.cname;
-        c.
         c.aadhar = req.body.aadhar;
         c.description = req.body.description;        
         c.save();
@@ -154,7 +207,6 @@ app.post('/crecheregister',function(req ,res){
 });
 
 app.post('/login',function(req,res){
-    console.log("LOGIN GOT -------- ",req.body);
     if(req.body.radio == 'Government'){
         Government.findOne({email:req.body.email},function(err,r){
             if(err) console.log("Error : ",err);
@@ -163,9 +215,9 @@ app.post('/login',function(req,res){
                     if(error) console.log("Error : ",error);
                     else if(r) return res.json({"result":true});
                     else return res.json({"result":false});
-                })
+                });
             }
-        })
+        });
     }
     else if(req.body.radio == 'Creche'){
         Creche.findOne({email:req.body.email},function(err,r){
@@ -175,9 +227,9 @@ app.post('/login',function(req,res){
                     if(error) console.log("Error : ",error);
                     else if(r) return res.json({"result":true});
                     else return res.json({"result":false});
-                })
+                });
             }
-        })
+        });
     }
     else{
         Parent.findOne({email:req.body.email},function(err,r){
@@ -187,11 +239,11 @@ app.post('/login',function(req,res){
                     if(error) console.log("Error : ",error);
                     else if(r) return res.json({"result":true});
                     else return res.json({"result":false});
-                })
+                });
             }
-        })
+        });
     }
-})
+});
 
 app.listen(3000,(err, res) => {
     if(err) return console.log("Unable to set up server",err);

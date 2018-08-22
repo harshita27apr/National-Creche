@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" routerLink="/" >
-        <img src="assets/images/logo.jpg" width="50" height="50" alt="logo">
+        <img src="assets/logo.jpg" width="50" height="50" alt="logo">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -30,7 +30,7 @@
 </nav><br><br>
 
 <div>
-  <li *ngFor let a of arr>
+  <li *ngFor="let a of arr">
     <h2>{{a.cname}}</h2>
     <p>{{a.description}}</p>
   </li>

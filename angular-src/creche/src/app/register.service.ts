@@ -32,7 +32,7 @@ export class RegisterService {
   }
 
   crechelist() : Observable<any> {
-    return this.http.get("http://localhost:3000/crechelist").pipe(map(response => response));
+    return this.http.post("http://localhost:3000/crechelist",{}).pipe(map(response => response));
   }
 
   addadmin(array) : Observable<any> {
@@ -40,6 +40,6 @@ export class RegisterService {
   }
 
   addcreche(array) : Observable<any> {
-    return this.http.post("http://localhost:3000/addcreche",array).pipe(map(response => response));
+    return this.http.post("http://localhost:3000/sendRegisterMail",array).pipe(map(response => response));
   }
 }

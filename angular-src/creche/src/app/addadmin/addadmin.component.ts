@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterService } from '../register.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-addadmin',
@@ -7,21 +8,17 @@ import { RegisterService } from '../register.service';
   styleUrls: ['./addadmin.component.css']
 })
 export class AddadminComponent implements OnInit {
-
-  arr;
-  res;
-
-  constructor(private register : RegisterService) { }
-
-  ngOnInit() {
-  }
+  constructor( private register:RegisterService , private router:Router ) { }
+  ngOnInit() {  }
 
   send(email,password) {
-    this.arr = {
+    const arr = {
       "email" : email,
-      "password" : password
+      "password" : password,
+      "db" : "creche"
     }
-    this.register.addadmin(this.arr).subscribe(res =>this.res = res);
+    this.register.addcreche(arr).subscribe(res => {
+      if(res.result) this.router.navigate(['/govhome']);
+    });
   }
-
 }

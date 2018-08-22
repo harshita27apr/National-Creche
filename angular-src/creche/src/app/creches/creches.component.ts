@@ -7,17 +7,15 @@ import { RegisterService } from '../register.service';
   styleUrls: ['./creches.component.css']
 })
 export class CrechesComponent implements OnInit {
-
-  arr;
-
-  constructor(private register : RegisterService) { }
-
-  ngOnInit() {
-    this.crechelist();
-  }
+  arr=[];
+  constructor( private register : RegisterService ) { }
+  ngOnInit() { this.crechelist(); }
 
   crechelist() {
-    this.register.crechelist().subscribe(arr => this.arr = arr);
+    this.register.crechelist().subscribe(arr =>{
+      this.arr = arr;
+      console.log(this.arr);
+    });
   }
 
 }
