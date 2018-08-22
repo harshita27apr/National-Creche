@@ -110,6 +110,9 @@ app.post('/sendRegisterMail',function(req,res){
                 creche.email = req.body.email;
                 creche.password = req.body.password;
                 creche.save();
+                smtpTransport.sendMail(mailOptions, function(error, response){
+                    if(error) res.end("error");
+                });
                 return res.json({"result":true});
             }
         });
@@ -123,6 +126,9 @@ app.post('/sendRegisterMail',function(req,res){
                 gov.email = req.body.email;
                 gov.password = req.body.password;
                 gov.save();
+                smtpTransport.sendMail(mailOptions, function(error, response){
+                    if(error) res.end("error");
+                });
                 return res.json({"result":true});
             }
         });
@@ -141,9 +147,6 @@ app.post('/sendRegisterMail',function(req,res){
         subject : "Registration Successful",
         html : '<b>Hello dear,<hr>This is to bring to your attention that your registration for National Creche has been successful. Your Id and OTP(One Time Password) is as follows<hr>ID  :' + req.body.email + '<hr>Password : ' + req.body.password + '<hr>Please Note : You are solely responsible for all the entries that are made. If at any point you are found to have entered false entries then strict actions will be taken againt you.<br>Regards,<hr>National Creche Team<b>'
     }
-    smtpTransport.sendMail(mailOptions, function(error, response){
-        if(error) res.end("error");
-    });
 });
 
 app.post('/crechelist',function(req,res){
