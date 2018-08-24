@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" routerLink="/" >
     </a>
@@ -36,43 +35,105 @@
         </li>
       </ul>
     </div>
-  </nav>
-  <form class= "form-horizontal" #loginForm="ngForm" style="background-color: transparent; text-align: center" >
-     
-    <div class="row d-flex justify-content-center">
+</nav>
+
+<div class="card" style="background-color:transparent">
+  <div class="card-body">
+      <div class="container">
+  <h3 class="text-center">Register Faculty</h3><br>
+
+  <form class= "form-horizontal" #facultyregisterForm="ngForm" style="background-color: transparent; text-align: center">
+
+<div class="row d-flex justify-content-center">
+  <div class="col-xs-4">
+      <div class="form-group">
+          <input type="text" class="form-control" placeholder="Enter your name" id="name" required minlength = "3"
+              [(ngModel)]="namet" name="name" #name="ngModel">
+      <div *ngIf="name.errors && (name.dirty || name.touched)">
+          <div [hidden]="!name.errors.required">
+              <mark>Name is required!</mark>
+          </div>
+          <div [hidden]="!name.errors.minlength">
+            <mark>Name must be at least 3 characters long.</mark>
+          </div>
+      </div>
+      </div>
+  </div>
+</div>
+
+<div class="row d-flex justify-content-center">
     <div class="col-xs-4">
     <div class="form-group">
-      <input type="email" class="form-control" placeholder="Email" id="email" required email
-      [(ngModel)]="emailtext" name="email" #email="ngModel" >
-      <div *ngIf="email.errors && (email.dirty || email.touched)">
-        <div [hidden]="!email.errors.required">
-          <mark>Email is required!</mark>
+        <input type="email" class="form-control" placeholder="Email" id="email" required email
+            [(ngModel)]="emailt" name="email" #email="ngModel" >
+        <div *ngIf="email.errors && (email.dirty || email.touched)">
+            <div [hidden]="!email.errors.required">
+                <mark>Email is required!</mark>
+            </div>
+            <div [hidden]="!email.errors.email">
+                <mark>Email must be a valid one.</mark>
+            </div>
         </div>
-        <div [hidden]="!email.errors.email">
-        <mark>Email must be a valid one.</mark>
-        </div>
-      </div>
     </div>
     </div>
     </div>
-  
+
+  <div class="row d-flex justify-content-center">
+  <div class="col-xs-4">
+  <div class="form-group">
+      <input type="mobile" placeholder="Mobile" class="form-control" id="mobile" required minlength="10"
+          [(ngModel)]="mobilet" name="mobile" #mobile="ngModel">
+      <div *ngIf="mobile.errors && (mobile.dirty || mobile.touched)">
+          <div [hidden]="!mobile.errors.required">
+              <mark>Mobile is required!</mark>
+          </div>
+          <div [hidden]="!mobile.errors.minlength">
+             <mark>Mobile must be at least 10 characters long.</mark>
+          </div>
+      </div>  
+  </div>
+  </div>
+  </div>
+
     <div class="row d-flex justify-content-center">
-    <div class="col-xs-4">
-    <div class="form-group">
-      <input type="password" class="form-control" placeholder="Password" id="password" required minlength="6" 
-      [(ngModel)]="passwordtext" name="password" #password="ngModel" >
-      <div *ngIf="password.errors && (password.dirty || password.touched)">
-        <div [hidden]="!password.errors.required">
-        <mark>Password is required!</mark>
-        </div>
-        <div [hidden]="!password.errors.minlength">
-        <mark>Password must be at least 8 characters long.</mark>
-        </div>
+      <div class="col-xs-4">
+      <div class="form-group">
+          <input type="number" placeholder="Aadhar Card Number" class="form-control" id="aadhar" required minlength="12" 
+              [(ngModel)]="aadhart" name="aadhar" #aadhar="ngModel">
+          <div *ngIf="aadhar.errors && (aadhar.dirty || aadhar.touched)">
+              <div [hidden]="!aadhar.errors.required">
+                  <mark>Aadhar Card Number is required!</mark>
+              </div>
+              <div [hidden]="!mobile.errors.minlength">
+                <mark>Aadhar card number must be 12 characters long.</mark>
+             </div>
+          </div>  
       </div>
-    </div>
-    </div>
-    </div>
-  
-      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid"
-         (click) = "send(email.value,password.value)">Add Faculty</button>
-    </form>
+      </div>
+      </div>
+
+      <div class="row d-flex justify-content-center">
+        <div class="col-xs-4">
+        <div class="form-group">
+            <input type="text" placeholder="Address" class="form-control" id="address" required
+                [(ngModel)]="addresst" name="address" #address="ngModel">
+            <div *ngIf="address.errors && (address.dirty || address.touched)">
+                <div [hidden]="!address.errors.required">
+                    <mark>Address is required!</mark>
+                </div>
+            </div>  
+        </div>
+        </div>
+        </div>
+
+
+
+  <button type="submit" class="btn btn-primary btn-lg" [disabled]="!facultyregisterForm.form.valid"
+  (click) = "addfac(name.value,email.value,mobile.value,aadhar.value,address.value)"
+  [routerLink] = "['/crechehome']">Submit</button>
+
+</form>
+</div>
+</div>
+</div>
+

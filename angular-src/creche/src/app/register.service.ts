@@ -64,7 +64,15 @@ export class RegisterService {
     return this.http.post("http://localhost:3000/sendRegisterMail",{ "email":email , "password":password , "db":"children" , "crecheName":this.value.name , "crecheEmail":this.LoggedWho.email}).pipe(map(response => response));
   }
 
-  addFaculty(email,password) : Observable<any> {
-    return this.http.post("http://localhost:3000/sendRegisterMail",{ "email":email , "password":password , "db":"faculty" , "crecheName":this.value.name, "crecheEmail":this.LoggedWho.email }).pipe(map(response => response));
+  addFaculty(name,email,aadhar,mobile,address) : Observable<any> {
+    return this.http.post("http://localhost:3000/sendRegisterMail",{ "email":email , "name" : name,"aadhar" : aadhar,"address":address,"mobile" : mobile, "db":"faculty" , "crecheName":this.value.name, "crecheEmail":this.LoggedWho.email }).pipe(map(response => response));
+  }
+
+  facultylist() : Observable<any> {
+    return this.http.post("http://localhost:3000/facultylist",{}).pipe(map(response => response));
+  }
+
+  childrenlist() : Observable<any> {
+    return this.http.post("http://localhost:3000/childrenlist",{}).pipe(map(response => response));
   }
 }

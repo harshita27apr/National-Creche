@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RegisterService } from '../register.service';
 
 @Component({
   selector: 'app-children',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChildrenComponent implements OnInit {
 
-  constructor() { }
+  arr;
+  res;
 
-  ngOnInit() {
+  constructor(private register : RegisterService) { }
+
+  ngOnInit() 
+  {
+    this.childrenlist(); 
+  }
+
+  childrenlist() {
+    this.register.childrenlist().subscribe(res =>{
+      this.arr = res });
   }
 
 }

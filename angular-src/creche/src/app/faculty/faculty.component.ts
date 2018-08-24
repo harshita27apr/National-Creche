@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RegisterService } from '../register.service';
 
 @Component({
   selector: 'app-faculty',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FacultyComponent implements OnInit {
 
-  constructor() { }
+  arr;
+  res;
 
-  ngOnInit() {
+  constructor(private register : RegisterService) { }
+
+  ngOnInit() 
+  {
+    this.facultylist(); 
   }
 
+  facultylist() {
+    this.register.facultylist().subscribe(res =>{
+      this.arr = res });
+  }
 }
