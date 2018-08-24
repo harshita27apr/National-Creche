@@ -37,3 +37,42 @@
       </ul>
     </div>
 </nav>
+<form class= "form-horizontal" #loginForm="ngForm" style="background-color: transparent; text-align: center" >
+     
+  <div class="row d-flex justify-content-center">
+  <div class="col-xs-4">
+  <div class="form-group">
+    <input type="email" class="form-control" placeholder="Email" id="email" required email
+    [(ngModel)]="emailtext" name="email" #email="ngModel" >
+    <div *ngIf="email.errors && (email.dirty || email.touched)">
+      <div [hidden]="!email.errors.required">
+        <mark>Email is required!</mark>
+      </div>
+      <div [hidden]="!email.errors.email">
+      <mark>Email must be a valid one.</mark>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+  <div class="col-xs-4">
+  <div class="form-group">
+    <input type="password" class="form-control" placeholder="Password" id="password" required minlength="6" 
+    [(ngModel)]="passwordtext" name="password" #password="ngModel" >
+    <div *ngIf="password.errors && (password.dirty || password.touched)">
+      <div [hidden]="!password.errors.required">
+      <mark>Password is required!</mark>
+      </div>
+      <div [hidden]="!password.errors.minlength">
+      <mark>Password must be at least 8 characters long.</mark>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid"
+       (click) = "send(email.value,password.value)">Add Children</button>
+  </form>

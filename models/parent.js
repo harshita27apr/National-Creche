@@ -28,7 +28,10 @@ var Parent = mongoose.model('Parent' ,{
     address : {
         type : String,
     },
-    creche : {
+    crecheEmail : {
+        type : String
+    },
+    crecheName : {
         type : String
     },
     cname : {

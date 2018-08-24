@@ -28,8 +28,11 @@ var Faculty = mongoose.model('Faculty' ,{
     address : {
         type : String,
     },
-    creche : {
+    crecheName : {
         type : String
+    },
+    crecheEmail : {
+        type : String,
     }
 });
 

@@ -36,6 +36,9 @@ var Creche = mongoose.model('Creche' ,{
     faculty : {
         type : Array
     },
+    children : {
+        type : Array,
+    },
     aadhar : {
         type : Number,
         length : 12

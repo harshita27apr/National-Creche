@@ -1,6 +1,7 @@
+import { AddchildrenComponent } from './addchildren/addchildren.component';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {map} from 'rxjs/operators'
+import {map, tap} from 'rxjs/operators'
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,8 +10,8 @@ import { Observable } from 'rxjs';
 export class RegisterService {
 
   value;
-
-  constructor (private http : HttpClient) { }
+  LoggedWho; 
+  constructor ( private http : HttpClient ) { }
 
   setvalue(v) {
     this.value = v;
@@ -40,7 +41,11 @@ export class RegisterService {
   }
 
   login(array) : Observable<any> {
-    return this.http.post("http://localhost:3000/login",array).pipe(map(response => response));
+    return this.http.post("http://localhost:3000/login",array)
+    .pipe(
+      tap( incomingValue => this.LoggedWho = incomingValue ),
+      map( () => { return {"result":this.LoggedWho.result} } )
+    );
   }
 
   crechelist() : Observable<any> {
@@ -48,10 +53,18 @@ export class RegisterService {
   }
 
   addadmin(array) : Observable<any> {
-    return this.http.post("http://localhost:3000/addadmin",array).pipe(map(response => response));
+    return this.http.post("http://localhost:3000/sendRegisterMail",array).pipe(map(response => response));
   }
 
   addcreche(array) : Observable<any> {
     return this.http.post("http://localhost:3000/sendRegisterMail",array).pipe(map(response => response));
+  }
+
+  addChildren(email,password) : Observable<any> {
+    return this.http.post("http://localhost:3000/sendRegisterMail",{ "email":email , "password":password , "db":"children" , "crecheName":this.value.name , "crecheEmail":this.LoggedWho.email}).pipe(map(response => response));
+  }
+
+  addFaculty(email,password) : Observable<any> {
+    return this.http.post("http://localhost:3000/sendRegisterMail",{ "email":email , "password":password , "db":"faculty" , "crecheName":this.value.name, "crecheEmail":this.LoggedWho.email }).pipe(map(response => response));
   }
 }

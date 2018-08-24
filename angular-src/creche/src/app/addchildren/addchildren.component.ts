@@ -1,4 +1,6 @@
+import { RegisterService } from './../register.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-addchildren',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddchildrenComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor( private router:Router , private register:RegisterService ) {  }
+  ngOnInit() {  }
+  send(email,password){
+    this.register.addChildren(email,password).subscribe( res => {
+      if(res.result) this.router.navigate(['/crechehome']);
+    })
   }
-
 }

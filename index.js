@@ -102,8 +102,7 @@ app.post('/checkregister',function(req ,res){
 app.post('/sendRegisterMail',function(req,res){
     if(req.body.db == 'creche'){
         Creche.findOne({email:req.body.email},function(err,r){
-            console.log(r);
-            if(err) console.log("Error : ",err);
+            if(err) console.log("Error : Creche FindOne\n",err);
             else if(r) return res.json({"result":true});
             else{
                 var creche = new Creche;
@@ -111,7 +110,7 @@ app.post('/sendRegisterMail',function(req,res){
                 creche.password = req.body.password;
                 creche.save();
                 smtpTransport.sendMail(mailOptions, function(error, response){
-                    if(error) res.end("error");
+                    if(error) res.end("Error : SMTP Transport Creche\n",error);
                 });
                 return res.json({"result":true});
             }
@@ -119,7 +118,7 @@ app.post('/sendRegisterMail',function(req,res){
     }
     else if(req.body.db == 'admin'){
         Government.findOne({email:req.body.email},function(err,r){
-            if(err) console.log("Error : ",err);
+            if(err) console.log("Error : Government FindOne\n",err);
             else if(r) return res.json({"result":true});
             else{
                 var gov = new Government;
@@ -127,9 +126,43 @@ app.post('/sendRegisterMail',function(req,res){
                 gov.password = req.body.password;
                 gov.save();
                 smtpTransport.sendMail(mailOptions, function(error, response){
-                    if(error) res.end("error");
+                    if(error) res.end("Error : SMTP Transport Government\n",error);
                 });
                 return res.json({"result":true});
+            }
+        });
+    }
+    else if(req.body.db == "children"){
+        Parent.findOne({email:req.body.email},function(err,r){
+            if(err) console.log("Error : Children FindOne\n",err);
+            else if(r) return res.json({"result":true});
+            else{
+                var child = new Parent;
+                child.email = req.body.email;
+                child.password = req.body.password;
+                child.crecheEmail = req.body.crecheEmail;
+                child.crecheName = req.body.crecheName
+                child.save();
+                smtpTransport.sendMail(mailOptionsChild,function(error,response){
+                    if(error) console.log("Error : SMTP Transport Children\n",error);
+                });
+            }
+        });
+    }
+    else if(req.body.db == "faculty"){
+        Faculty.findOne({email:req.body.email},function(err,r){
+            if(err) console.log("Error : Faculty FindOne\n");
+            else if(r) res.json({"result":true});
+            else{
+                var fac = new Faculty;
+                fac.email = req.body.email;
+                fac.password = req.body.password;
+                fac.crecheEmail = req.body.crecheEmail;
+                fac.crecheName = req.body.crecheName;
+                fac.save();
+                smtpTransport.sendMail(mailOptionsFaculty,function(error,response){
+                    if(error) console.log("Error : SMTP Transport Faculty\n",error);
+                });
             }
         });
     }
@@ -145,7 +178,19 @@ app.post('/sendRegisterMail',function(req,res){
         from : '"National Creche" <national.creche@gmail.com>',
         to : req.body.email,
         subject : "Registration Successful",
-        html : '<b>Hello dear,<hr>This is to bring to your attention that your registration for National Creche has been successful. Your Id and OTP(One Time Password) is as follows<hr>ID  :' + req.body.email + '<hr>Password : ' + req.body.password + '<hr>Please Note : You are solely responsible for all the entries that are made. If at any point you are found to have entered false entries then strict actions will be taken againt you.<br>Regards,<hr>National Creche Team<b>'
+        html : '<b>Hello dear,<br>This is to bring to your attention that your registration for National Creche has been successful. Your Id and OTP(One Time Password) is as follows<br>ID  :' + req.body.email + '<br>Password : ' + req.body.password + '<br>Please Note : You are solely responsible for all the entries that are made. If at any point you are found to have entered false entries then strict actions will be taken againt you.<hr>Regards,<br>National Creche Team<b>'
+    }
+    var mailOptionsChild = {
+        from : '"National Creche" <national.creche@gmail.com>',
+        to : req.body.email,
+        subject : "Registration Successful",
+        html : "<b>Hello Dear,<br>We would love to inform you that your ward's admission has been successfully registered under the National Creche Program. Your ward's childhood and safety is of our utmost importance and so we would like you to please visit our official page and fill out your details.<br>Your login details are as follows :<br>ID - " + req.body.email + "<br>OTP - " + req.body.password + "<br>We will inform you about you child's activities and notices on our official site, so please stay tuned<br>For any queries revert please contact us or revert on this mail id - " + req.body.crecheEmail + "<hr>Regards<br>National Creche Team"
+    }
+    var mailOptionsFaculty = {
+        from : '"National Creche" <national.creche@gmail.com>',
+        to : req.body.email,
+        subject : "Registration Successful",
+        html : "Hello Dear,<br>With reference to your interview, we would like to inform you that you have been selected for the job offered. It is mandatory that you login on our home page with the following details<br>ID : " + req.body.email + "<br>OTP : " + req.body.password + "<br>All the details submitted and filled in this form must be genuine. You are solely responsible for the details claimed by you.<br>For any queries revert please contact us or revert on this mail id - " + req.body.crecheEmail + "<hr>Regards<br>National Creche Team"
     }
 });
 
@@ -215,7 +260,7 @@ app.post('/login',function(req,res){
             else if(r){
                 bcrypt.compare(req.body.password,r.password,function(error,result){
                     if(error) console.log("Error : ",error);
-                    else if(result) return res.json({"result":true});
+                    else if(result) return res.json({"result":true , "name":r.name , "email":r.email});
                     else return res.json({"result":false});
                 });
             }
@@ -227,7 +272,7 @@ app.post('/login',function(req,res){
             else if(r){
                 bcrypt.compare(req.body.password,r.password,function(error,result){
                     if(error) console.log("Error : ",error);
-                    else if(result) return res.json({"result":true});
+                    else if(result) return res.json({"result":true , "name":r.cname , "email":r.email});
                     else return res.json({"result":false});
                 });
             }
@@ -239,7 +284,7 @@ app.post('/login',function(req,res){
             else if(r){
                 bcrypt.compare(req.body.password,r.password,function(error,result){
                     if(error) console.log("Error : ",error);
-                    else if(result) return res.json({"result":true});
+                    else if(result) return res.json({"result":true , "name":r.cname , "email":r.email});
                     else return res.json({"result":false});
                 });
             }
