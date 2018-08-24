@@ -156,7 +156,10 @@ app.post('/sendRegisterMail',function(req,res){
             else{
                 var fac = new Faculty;
                 fac.email = req.body.email;
-                fac.password = req.body.password;
+                fac.name = req.body.name;
+                fac.mobile = req.body.mobile;
+                fac.address = req.body.address;
+                fac.aadhar = req.body.aadhar;
                 fac.crecheEmail = req.body.crecheEmail;
                 fac.crecheName = req.body.crecheName;
                 fac.save();
@@ -196,6 +199,20 @@ app.post('/sendRegisterMail',function(req,res){
 
 app.post('/crechelist',function(req,res){
     Creche.find({},{description:1,cname:1},function(err,r){
+        if(err) console.log("Error");
+        else if(r) res.send(r);
+    });
+});
+
+app.post('/childrenlist',function(req,res){
+    Parent.find({},function(err,r){
+        if(err) console.log("Error");
+        else if(r) res.send(r);
+    });
+});
+
+app.post('/facultylist',function(req,res){
+    Faculty.find({},function(err,r){
         if(err) console.log("Error");
         else if(r) res.send(r);
     });
