@@ -33,12 +33,6 @@ var Creche = mongoose.model('Creche' ,{
     timetable : {
       type : String  
     },
-    faculty : {
-        type : Array
-    },
-    children : {
-        type : Array,
-    },
     aadhar : {
         type : Number,
         length : 12

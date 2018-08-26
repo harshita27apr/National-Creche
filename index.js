@@ -8,10 +8,11 @@ var bcrypt = require('bcryptjs');
 app.use(bodyParser.json(),cors());
 const saltRounds = 10;
 
-var {Government} = require('./models/government')
-var {Parent} = require('./models/parent')
-var {Creche} = require('./models/creche')
-var {Faculty} = require('./models/faculty')
+var {Government} = require('./models/government');
+var {Parent} = require('./models/parent');
+var {Creche} = require('./models/creche');
+var {Faculty} = require('./models/faculty');
+var {Notice} = reqiore('./models/notice');
 
 app.post('/contact',function(req,res){
     nodemailer.createTestAccount((err, account) => {
@@ -205,16 +206,22 @@ app.post('/crechelist',function(req,res){
 });
 
 app.post('/childrenlist',function(req,res){
-    Parent.find({},function(err,r){
+    Parent.find({crecheEmail:req.body.crecheEmail},function(err,r){
         if(err) console.log("Error");
         else if(r) res.send(r);
     });
 });
 
 app.post('/facultylist',function(req,res){
-    Faculty.find({},function(err,r){
+    Faculty.find({crecheEmail:req.body.crecheEmail},function(err,r){
         if(err) console.log("Error");
         else if(r) res.send(r);
+    });
+});
+
+app.post('/noticeList',function(req,res){
+    Notice.find({crecheEmail:req.body.crecheEmail}).sort({date:-1}).then( result => {
+        res.send(r);
     });
 });
 
@@ -236,7 +243,6 @@ app.post('/govregister',(req ,res) => {
 });
 
 app.post('/parentregister',(req ,res) => { 
-    console.log(req.body);
     Parent.find({ email : req.body.email}).then((parent) => {
         if (parent.length < 1) {
             return res.status(401).json({message: "Auth failed"});
@@ -270,6 +276,16 @@ app.post('/crecheregister',function(req ,res){
     })    
 });
 
+app.post('/noticeregister',function(req,res){
+    var notice = new Notice;
+    notice.subject = req.body.subject;
+    notice.description = req.body.description;
+    notice.date = Date.now();
+    notice.crecheName = req.body.crecheName;
+    notice.crecheEmail = req.body.crecheEmail;
+    notice.save();
+});
+
 app.post('/login',function(req,res){
     if(req.body.radio == 'Government'){
         Government.findOne({email:req.body.email},function(err,r){
@@ -289,7 +305,7 @@ app.post('/login',function(req,res){
             else if(r){
                 bcrypt.compare(req.body.password,r.password,function(error,result){
                     if(error) console.log("Error : ",error);
-                    else if(result) return res.json({"result":true , "name":r.cname , "email":r.email});
+                    else if(result) return res.json({"result":true , "name":r.name , "email":r.email , "crecheName":r.cname , "crecheEmail":r.email});
                     else return res.json({"result":false});
                 });
             }
@@ -301,7 +317,7 @@ app.post('/login',function(req,res){
             else if(r){
                 bcrypt.compare(req.body.password,r.password,function(error,result){
                     if(error) console.log("Error : ",error);
-                    else if(result) return res.json({"result":true , "name":r.cname , "email":r.email});
+                    else if(result) return res.json({"result":true , "name":r.cname , "email":r.email , "crecheName":r.crecheName , "crecheEmail":r.crecheEmail});
                     else return res.json({"result":false});
                 });
             }

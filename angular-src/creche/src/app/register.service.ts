@@ -1,7 +1,7 @@
 import { AddchildrenComponent } from './addchildren/addchildren.component';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {map, tap} from 'rxjs/operators'
+import { map, tap } from 'rxjs/operators'
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -61,18 +61,26 @@ export class RegisterService {
   }
 
   addChildren(email,password) : Observable<any> {
-    return this.http.post("http://localhost:3000/sendRegisterMail",{ "email":email , "password":password , "db":"children" , "crecheName":this.value.name , "crecheEmail":this.LoggedWho.email}).pipe(map(response => response));
+    return this.http.post("http://localhost:3000/sendRegisterMail",{ "email":email , "password":password , "db":"children" , "crecheName":this.LoggedWho.name , "crecheEmail":this.LoggedWho.email}).pipe(map(response => response));
   }
 
   addFaculty(name,email,aadhar,mobile,address) : Observable<any> {
-    return this.http.post("http://localhost:3000/sendRegisterMail",{ "email":email , "name" : name,"aadhar" : aadhar,"address":address,"mobile" : mobile, "db":"faculty" , "crecheName":this.value.name, "crecheEmail":this.LoggedWho.email }).pipe(map(response => response));
+    return this.http.post("http://localhost:3000/sendRegisterMail",{ "email":email , "name" : name,"aadhar" : aadhar,"address":address,"mobile" : mobile, "db":"faculty" , "crecheName":this.LoggedWho.name, "crecheEmail":this.LoggedWho.email }).pipe(map(response => response));
+  }
+
+  addNotice(subject,description) : Observable<any> {
+    return this.http.post("http://localhost:3000/noticeregister",{"subject":subject , "desciption":description , "crecheName":this.LoggedWho.crecheName , "crecheEmail":this.LoggedWho.crecheEmail}).pipe(map( res => res ));
+  }
+
+  noticelist() : Observable<any> {
+    return this.http.post('http://localhost:3000/noticeList',{"crecheEmail":this.LoggedWho.crecheEmail}).pipe(map(response => response));
   }
 
   facultylist() : Observable<any> {
-    return this.http.post("http://localhost:3000/facultylist",{}).pipe(map(response => response));
+    return this.http.post("http://localhost:3000/facultylist",{"crecheEmail":this.LoggedWho.email}).pipe(map(response => response));
   }
 
   childrenlist() : Observable<any> {
-    return this.http.post("http://localhost:3000/childrenlist",{}).pipe(map(response => response));
+    return this.http.post("http://localhost:3000/childrenlist",{"crecheEmail":this.LoggedWho.email}).pipe(map(response => response));
   }
 }
